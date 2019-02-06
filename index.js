@@ -1,92 +1,92 @@
-const textNotesDOM = document.getElementById('myUL');
+const textNotesDOM = document.getElementById('myUL')
 
-let nextId = 1;
+let nextId = 1
 
 const MyNotes = {
   notes: [],
 
   display: (data = MyNotes.notes) => {
-    textNotesDOM.innerHTML = '';
-    var txt = document.createTextNode('\u00D7');
-    data.forEach(element => {
-      const liDOM = document.createElement('li');
+    textNotesDOM.innerHTML = ''
+    var txt = document.createTextNode('\u00D7')
+    data.forEach(item => {
+      const liDOM = document.createElement('li')
 
-      liDOM.innerHTML = `<span ${element.completed ? 'class="completed"' : ''}
-            onclick="MyNotes.toggleCompleted(${element.id})">${
-        element.text
-      }</span>
-            <span class="edit" onclick="MyNotes.editTask(${
-              element.id
-            })">✎</span>
+      liDOM.innerHTML = `<span ${item.completed ? 'class="completed"' : ''}
+            onclick="MyNotes.toggleCompleted(${item.id})">${item.text}</span>
+            <span class="edit" onclick="MyNotes.editTask(${item.id})">✎</span>
             <span class="close" onclick="MyNotes.removeTask(${
-              element.id
-            })">✖</span>`;
+              item.id
+            })">✖</span>`
 
-      textNotesDOM.appendChild(liDOM);
-    });
+      textNotesDOM.appendChild(liDOM)
+    })
   },
 
-  newElement: () => {
-    event.preventDefault();
+  addTodo: () => {
+    event.preventDefault()
 
     const newNotes = {
       id: nextId,
       text: document.getElementById('myInput').value,
       completed: false
-    };
-    let textForm = document.getElementById('myInput').value;
+    }
+
+    let textForm = document.getElementById('myInput').value
+
     if (textForm !== '') {
-      MyNotes.notes.push(newNotes);
-      MyNotes.display();
-      document.getElementById('myInput').value = '';
-      nextId++;
+      MyNotes.notes.push(newNotes)
+      MyNotes.display()
+      document.getElementById('myInput').value = ''
+      nextId++
     }
   },
 
   editTask: id => {
-    const notesEdit = prompt('Edit your task...');
+    const notesEdit = prompt('Edit your task...')
 
     if (notesEdit !== null) {
       const modifiedNotes = MyNotes.notes.map(note => {
         if (note.id === id) {
-          note.text = notesEdit;
+          note.text = notesEdit
         }
-        return note;
-      });
-      MyNotes.notes = modifiedNotes;
-      MyNotes.display();
+        return note
+      })
+      MyNotes.notes = modifiedNotes
+      MyNotes.display()
     }
   },
 
   removeTask: id => {
     const deleteNote = MyNotes.notes.filter(note => {
-      return note.id !== id;
-    });
-    MyNotes.notes = deleteNote;
-    MyNotes.display();
+      return note.id !== id
+    })
+    MyNotes.notes = deleteNote
+    MyNotes.display()
   },
 
   searchTask: () => {
-    event.preventDefault();
-    const keyword = document.getElementById('search-text').value;
+    event.preventDefault()
+    const keyword = document.getElementById('search-text').value
 
     const foundTasks = MyNotes.notes.filter(item => {
-      return item.text.toLowerCase().includes(keyword.toLowerCase());
-    });
+      return item.text.toLowerCase().includes(keyword.toLowerCase())
+    })
 
-    MyNotes.display(foundTasks);
+    MyNotes.display(foundTasks)
   }
-};
+}
 
 // Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('ul');
+var list = document.querySelector('ul')
+
 list.addEventListener(
   'click',
   function(ev) {
     if (ev.target.tagName === 'LI') {
-      ev.target.classList.toggle('checked');
+      ev.target.classList.toggle('checked')
     }
   },
   false
-);
-MyNotes.display();
+)
+
+MyNotes.display()

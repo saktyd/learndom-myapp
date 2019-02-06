@@ -14,7 +14,7 @@
   <body>
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
       <a class="navbar-brand">MyTask</a>
-      <form class="form-inline" onclick="MyNotes.searchTask()">
+      <form class="form-inline" onsubmit="MyNotes.searchTask()">
         <input
           id="search-text"
           class="form-control mr-sm-2"
@@ -29,11 +29,11 @@
       </form>
     </nav>
 
-    <div id="myDIV" class="header">
+    <form id="myDIV" class="header" onsubmit="MyNotes.addTodo()">
       <h2 style="margin:5px">TodoList</h2>
       <input type="text" id="myInput" placeholder="Create your task..." />
-      <span onclick="MyNotes.newElement()" class="addBtn">Add</span>
-    </div>
+      <button class="addBtn" typ="submit">Add</button>
+    </form>
 
     <ul id="myUL"></ul>
 
